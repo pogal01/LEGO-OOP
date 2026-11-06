@@ -128,8 +128,8 @@ MonoBehaviour:
       Title:
         m_Untranslated: Add an Elevator brick
       Text:
-        m_Untranslated: In the Project window, select the <b>Elevator Behaviour Brick</b>
-          and drag it into the Scene view.
+        m_Untranslated: In the Project window, open <b>Assets/LEGO/Prefabs/LEGO Behaviour Bricks</b>.
+          Drag the <b>Elevator</b> brick from that folder into the Scene view.
       m_Tutorial: {fileID: 0}
       m_Image: {fileID: 0}
       m_Video: {fileID: 0}
@@ -137,7 +137,7 @@ MonoBehaviour:
       m_Criteria:
         m_Items:
         - Type:
-            m_TypeName: Unity.Tutorials.Core.Editor.InstantiatePrefabCriterion, Unity.Tutorials.Core.Editor,
+            m_TypeName: Unity.LEGO.Tutorials.ElevatorPrefabCriterion, Unity.LEGO.Tutorials,
               Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
           Criterion: {fileID: 5918031322241129070}
       m_MaskingSettings:
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd3e7c665e4144f519b7ee9de726ea5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 738c1c51be04451c878a9b9f5ae32ea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Completed:
@@ -247,8 +247,4 @@ MonoBehaviour:
   isTesting: 0
   m_PrefabParent: {fileID: 5952549877573738461, guid: 498488446aa4c453ebfad8a187f1299a,
     type: 3}
-  m_FuturePrefabInstances:
-    m_Items:
-    - m_PrefabParent: {fileID: 5952549877573738461, guid: 498488446aa4c453ebfad8a187f1299a,
-        type: 3}
-      m_FutureReference: {fileID: -4238694715358649980}
+  m_FutureReference: {fileID: -4238694715358649980}
