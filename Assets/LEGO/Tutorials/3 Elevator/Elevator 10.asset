@@ -128,8 +128,9 @@ MonoBehaviour:
       Title:
         m_Untranslated: Add an Elevator brick
       Text:
-        m_Untranslated: In the Project window, open <b>Assets/LEGO/Prefabs/LEGO Behaviour Bricks</b>.
-          Drag the <b>Elevator</b> brick from that folder into the Scene view.
+        m_Untranslated: In the Project window, open <b>Assets/LEGO/Prefabs/LEGO Behaviour
+          Bricks</b>. Drag the <b>Elevator</b> brick from that folder into the Scene
+          view.
       m_Tutorial: {fileID: 0}
       m_Image: {fileID: 0}
       m_Video: {fileID: 0}

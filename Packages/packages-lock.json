@@ -98,8 +98,8 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.autodesk.fbx": "4.2.1",
-        "com.unity.timeline": "1.7.1"
+        "com.unity.timeline": "1.7.1",
+        "com.autodesk.fbx": "4.2.1"
       },
       "url": "https://packages.unity.com"
     },
@@ -148,22 +148,24 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.lego.materials": {
-      "version": "file:com.unity.lego.materials",
+      "version": "https://github.com/ESCG-Lewes/com.unity.lego.materials.git",
       "depth": 0,
-      "source": "embedded",
+      "source": "git",
       "dependencies": {
         "com.unity.render-pipelines.universal": "12.1.2"
-      }
+      },
+      "hash": "271526bce2b29891c0397297bc524a2000d0f134"
     },
     "com.unity.lego.modelimporter": {
-      "version": "file:com.unity.lego.modelimporter",
+      "version": "https://github.com/ESCG-Lewes/com.unity.lego.modelimporter.git",
       "depth": 0,
-      "source": "embedded",
+      "source": "git",
       "dependencies": {
         "com.unity.render-pipelines.universal": "12.1.2",
         "com.unity.ugui": "1.0.0",
-        "com.unity.lego.materials": "3.0.1"
-      }
+        "com.unity.lego.materials": "3.0.2"
+      },
+      "hash": "6b298fbe3d2c558c39464032538edad3fff7c631"
     },
     "com.unity.mathematics": {
       "version": "1.2.6",
@@ -178,8 +180,8 @@
       "source": "registry",
       "dependencies": {
         "com.unity.barracuda": "2.0.0",
-        "com.unity.modules.jsonserialize": "1.0.0",
-        "com.unity.modules.imageconversion": "1.0.0"
+        "com.unity.modules.imageconversion": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -237,6 +239,22 @@
         "com.unity.searcher": "4.9.2"
       }
     },
+    "com.unity.sysroot": {
+      "version": "2.0.10",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.sysroot.linux-x86_64": {
+      "version": "2.0.9",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.sysroot": "2.0.10"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.test-framework": {
       "version": "1.3.9",
       "depth": 0,
@@ -266,6 +284,16 @@
         "com.unity.modules.director": "1.0.0",
         "com.unity.modules.animation": "1.0.0",
         "com.unity.modules.particlesystem": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.toolchain.win-x86_64-linux-x86_64": {
+      "version": "2.0.11",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.sysroot": "2.0.10",
+        "com.unity.sysroot.linux-x86_64": "2.0.9"
       },
       "url": "https://packages.unity.com"
     },

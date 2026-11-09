@@ -7,6 +7,8 @@ namespace Unity.LEGO.Minifig
 {
     public class MinifigFaceAnimationController : MonoBehaviour
     {
+        public bool IsEnabled;
+        
         public enum FaceAnimation
         {
             Accept,
@@ -64,57 +66,63 @@ namespace Unity.LEGO.Minifig
 
         void Start()
         {
-            if (face == null)
+            if (IsEnabled)
             {
-                FindAndAssignFaceByTag();
-            }
-
-            if (face != null)
-            {
-                Renderer faceRenderer = face.GetComponent<Renderer>();
-                if (faceRenderer != null)
+                if (face == null)
                 {
-                    faceMaterial = faceRenderer.material;
-                    shaderTextureId = Shader.PropertyToID("_BaseMap");
-                    
-                    // Set initial texture
-                    if (defaultTexture != null)
+                    FindAndAssignFaceByTag();
+                }
+
+                if (face != null)
+                {
+                    Renderer faceRenderer = face.GetComponent<Renderer>();
+                    if (faceRenderer != null)
                     {
-                        faceMaterial.SetTexture(shaderTextureId, defaultTexture);
+                        faceMaterial = faceRenderer.material;
+                        shaderTextureId = Shader.PropertyToID("_BaseMap");
+
+                        // Set initial texture
+                        if (defaultTexture != null)
+                        {
+                            faceMaterial.SetTexture(shaderTextureId, defaultTexture);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError($"No Renderer component found on face object '{face.name}'");
                     }
                 }
                 else
                 {
-                    Debug.LogError($"No Renderer component found on face object '{face.name}'");
+                    Debug.LogError($"No face object found with tag '{faceTag}'");
                 }
-            }
-            else
-            {
-                Debug.LogError($"No face object found with tag '{faceTag}'");
             }
         }
 
         void Update()
         {
-            if (playing && currentAnimationData != null)
+            if (IsEnabled)
             {
-                currentFrame += Time.deltaTime * framesPerSecond;
-                var wholeFrame = Mathf.FloorToInt(currentFrame);
-
-                if (wholeFrame != showingFrame)
+                if (playing && currentAnimationData != null)
                 {
-                    if (wholeFrame >= currentAnimationData.textures.Length)
+                    currentFrame += Time.deltaTime * framesPerSecond;
+                    var wholeFrame = Mathf.FloorToInt(currentFrame);
+
+                    if (wholeFrame != showingFrame)
                     {
-                        if (defaultTexture != null)
+                        if (wholeFrame >= currentAnimationData.textures.Length)
                         {
-                            faceMaterial.SetTexture(shaderTextureId, defaultTexture);
+                            if (defaultTexture != null)
+                            {
+                                faceMaterial.SetTexture(shaderTextureId, defaultTexture);
+                            }
+                            playing = false;
                         }
-                        playing = false;
-                    }
-                    else if (currentAnimationData.textures[wholeFrame] != null)
-                    {
-                        faceMaterial.SetTexture(shaderTextureId, currentAnimationData.textures[wholeFrame]);
-                        showingFrame = wholeFrame;
+                        else if (currentAnimationData.textures[wholeFrame] != null)
+                        {
+                            faceMaterial.SetTexture(shaderTextureId, currentAnimationData.textures[wholeFrame]);
+                            showingFrame = wholeFrame;
+                        }
                     }
                 }
             }
@@ -122,55 +130,64 @@ namespace Unity.LEGO.Minifig
 
         public void PlayAnimation(FaceAnimation animation, float fps = 24.0f)
         {
-            if (!Application.isPlaying)
+            if (IsEnabled)
             {
-                Debug.LogWarning("Cannot play animations in edit mode");
-                return;
-            }
+                if (!Application.isPlaying)
+                {
+                    Debug.LogWarning("Cannot play animations in edit mode");
+                    return;
+                }
 
-            var animationIndex = animations.IndexOf(animation);
-            if (animationIndex < 0)
-            {
-                Debug.LogError($"Animation '{animation}' not found in the animations list");
-                return;
-            }
+                var animationIndex = animations.IndexOf(animation);
+                if (animationIndex < 0)
+                {
+                    Debug.LogError($"Animation '{animation}' not found in the animations list");
+                    return;
+                }
 
-            if (fps <= 0.0f)
-            {
-                Debug.LogError("Frames per second must be positive");
-                return;
-            }
+                if (fps <= 0.0f)
+                {
+                    Debug.LogError("Frames per second must be positive");
+                    return;
+                }
 
-            if (faceMaterial == null)
-            {
-                Debug.LogError("Face material not initialized");
-                return;
-            }
+                if (faceMaterial == null)
+                {
+                    Debug.LogError("Face material not initialized");
+                    return;
+                }
 
-            playing = true;
-            currentAnimationData = animationData[animationIndex];
-            currentFrame = 0.0f;
-            showingFrame = -1;
-            framesPerSecond = fps; // Set the animation's FPS here
+                playing = true;
+                currentAnimationData = animationData[animationIndex];
+                currentFrame = 0.0f;
+                showingFrame = -1;
+                framesPerSecond = fps; // Set the animation's FPS here
+            }
         }
 
         private void FindAndAssignFaceByTag()
         {
-            face = transform.Find(faceTag);
-            if (face == null)
+            if (IsEnabled)
             {
-                Debug.LogError($"No face object found with tag '{faceTag}'");
+                face = transform.Find(faceTag);
+                if (face == null)
+                {
+                    Debug.LogError($"No face object found with tag '{faceTag}'");
+                }
             }
         }
 
         // Helper methods for animation management
         public void AddAnimation(FaceAnimation animation, Texture2D[] textures)
         {
-            if (!animations.Contains(animation))
+            if (IsEnabled)
             {
-                animations.Add(animation);
-                var newAnimationData = new AnimationData { textures = textures };
-                animationData.Add(newAnimationData);
+                if (!animations.Contains(animation))
+                {
+                    animations.Add(animation);
+                    var newAnimationData = new AnimationData { textures = textures };
+                    animationData.Add(newAnimationData);
+                }
             }
         }
 
@@ -181,22 +198,28 @@ namespace Unity.LEGO.Minifig
 
         public void StopAnimation()
         {
-            playing = false;
-            if (defaultTexture != null && faceMaterial != null)
+            if (IsEnabled)
             {
-                faceMaterial.SetTexture(shaderTextureId, defaultTexture);
+                playing = false;
+                if (defaultTexture != null && faceMaterial != null)
+                {
+                    faceMaterial.SetTexture(shaderTextureId, defaultTexture);
+                }
             }
         }
 
         public void TriggerAnimation(FaceAnimation animation, float fps = 24.0f)
         {
-            if (HasAnimation(animation))
+            if (IsEnabled)
             {
-                PlayAnimation(animation, fps);
-            }
-            else
-            {
-                Debug.LogError($"Animation '{animation}' not found in the animations list");
+                if (HasAnimation(animation))
+                {
+                    PlayAnimation(animation, fps);
+                }
+                else
+                {
+                    Debug.LogError($"Animation '{animation}' not found in the animations list");
+                }
             }
         }
 
