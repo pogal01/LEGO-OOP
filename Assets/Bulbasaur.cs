@@ -19,5 +19,11 @@ public class Bulbasaur : MonoBehaviour
     void Update()
     {
         agent.destination = Target.position;
+
+        if (agent.isStopped)
+        {
+            // stop annimation here
+
+        }
     }
 }
